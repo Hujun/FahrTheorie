@@ -1,0 +1,5 @@
+node_modules/
+creds.json
+output/
+output.zip
+.DS_Store
