@@ -1,7 +1,7 @@
 {
   "name": "fahrtheorie",
   "version": "1.0.0",
-  "description": "Sample crawler for traffic rules in Switzerland.",
+  "description": "Simple crawler for Swiss traffic rules from theorie24.ch.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

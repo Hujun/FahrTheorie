@@ -33,14 +33,17 @@ try {
     await page.waitForNavigation();
 
     // language select
-    var languageNumber = {
-        'de': 1,
-        'fr': 2,
-        'it': 3,
-    }[config.language];
     console.log('language:', config.language);
-    var languageSelector = `.mainNav > .language > .standard select > option:nth-child(${languageNumber})` 
-    // await page.click(languageSelctor);
+    let languageOptions = await page.evaluate(() => {
+        let options = [...document.querySelectorAll('.mainNav > .language > .standard select > option')];
+        let res = {};
+        for (let option of options) {
+            res[option.innerText] = option.getAttribute('value');
+        }
+        return res;
+    });
+    await page.select('.mainNav > .language > .standard select', languageOptions[config.language]);
+    await page.waitFor(500);
 
     // get into `THORIE` pag
     await page.click('.mainNav > .menu > li:nth-child(2)');
@@ -115,6 +118,8 @@ try {
         let nextPage = preNextLinks[preNextLinks.length - 1]
         await page.goto(nextPage);
     } while (hasNextPage);
+
+    console.log(`${pageNum} pages printed`);
 
     await browser.close();
 })();
